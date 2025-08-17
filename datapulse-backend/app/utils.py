@@ -6,11 +6,17 @@ from sklearn.ensemble import IsolationForest
 def detect_outliers_iqr(df: pd.DataFrame):
     outlier_report = {}
     for col in df.select_dtypes(include=[np.number]).columns:
-        Q1 = df[col].quantile(0.25)
-        Q3 = df[col].quantile(0.75)
+        # Drop NaN values for calculation
+        col_clean = df[col].dropna()
+        if len(col_clean) < 3:  # Need at least 3 values
+            outlier_report[col] = 0
+            continue
+            
+        Q1 = col_clean.quantile(0.25)
+        Q3 = col_clean.quantile(0.75)
         IQR = Q3 - Q1
         lower, upper = Q1 - 1.5 * IQR, Q3 + 1.5 * IQR
-        outliers = df[(df[col] < lower) | (df[col] > upper)][col].count()
+        outliers = col_clean[(col_clean < lower) | (col_clean > upper)].count()
         outlier_report[col] = int(outliers)
     return outlier_report
 
@@ -19,8 +25,14 @@ def detect_outliers_iforest(df: pd.DataFrame):
     numeric = df.select_dtypes(include=[np.number])
     if numeric.shape[1] == 0:
         return {}
+    
+    # Drop rows with NaN values for Isolation Forest
+    numeric_clean = numeric.dropna()
+    if len(numeric_clean) < 10:  # Need sufficient data
+        return {"outlier_count": 0, "note": "insufficient_clean_data"}
+    
     clf = IsolationForest(contamination=0.05, random_state=42)
-    preds = clf.fit_predict(numeric)
+    preds = clf.fit_predict(numeric_clean)
     outlier_idx = np.where(preds == -1)[0]
     return {"outlier_count": int(len(outlier_idx))}
 
@@ -38,8 +50,15 @@ def drift_check(old_df: pd.DataFrame, new_df: pd.DataFrame):
     drift_report = {}
     for col in new_df.select_dtypes(include=[np.number]).columns:
         if col in old_df.columns:
-            psi = calculate_psi(old_df[col].dropna(), new_df[col].dropna())
-            drift_report[col] = round(psi, 3)
+            # Ensure both series have enough data and no NaN values
+            old_clean = old_df[col].dropna()
+            new_clean = new_df[col].dropna()
+            
+            if len(old_clean) >= 5 and len(new_clean) >= 5:  # Need sufficient data
+                psi = calculate_psi(old_clean, new_clean)
+                drift_report[col] = round(psi, 3)
+            else:
+                drift_report[col] = "insufficient_data"
     return drift_report
 
 # ---- Combined Analyzer ----
