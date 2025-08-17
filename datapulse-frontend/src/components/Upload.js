@@ -7,6 +7,9 @@ function Upload({ setResults, setLoading, setError }) {
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef(null);
 
+  // Get API URL from environment variable
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
   const handleFileSelect = (selectedFile) => {
     if (selectedFile && selectedFile.type === 'text/csv') {
       setFile(selectedFile);
@@ -54,7 +57,7 @@ function Upload({ setResults, setLoading, setError }) {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await axios.post("http://localhost:8000/upload", formData, {
+      const response = await axios.post(`${API_URL}/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         timeout: 30000, // 30 second timeout
       });
@@ -137,6 +140,7 @@ function Upload({ setResults, setLoading, setError }) {
       <div className="upload-tips">
         <p>💡 <strong>Supported formats:</strong> CSV files only</p>
         <p>🔍 <strong>What we analyze:</strong> Data quality, outliers, missing values, and drift detection</p>
+        <p>🌐 <strong>Backend:</strong> {API_URL.includes('onrender.com') ? 'Production (Render)' : 'Local Development'}</p>
       </div>
     </div>
   );
