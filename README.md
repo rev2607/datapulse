@@ -2,8 +2,7 @@
 > AI-Powered Data Health Analysis & Insights Platform - Get instant insights into your data quality, detect outliers, and monitor data drift with advanced ML algorithms.
 
 ![Tech Stack](https://img.shields.io/badge/Tech-Python|FastAPI|React|Docker-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+
 
 ## 📌 Overview
 **DataPulse** is a comprehensive data health analysis platform that combines the power of FastAPI backend with a modern React frontend to provide instant data quality insights. It's designed for data scientists, analysts, and engineers who need to quickly assess data health, detect anomalies, and monitor data drift in their datasets.
@@ -172,17 +171,6 @@ Once the backend is running, visit:
 - **Interactive API Docs**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 🙌 Author
 
