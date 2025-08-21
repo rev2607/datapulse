@@ -30,8 +30,7 @@
 - ✅ **Docker Support** - Easy deployment and containerization
 - ✅ **CORS Enabled** - Seamless frontend-backend integration
 
-## 🖼️ Demo
-![DataPulse Dashboard](https://via.placeholder.com/800x400/4A90E2/FFFFFF?text=DataPulse+Dashboard)
+## 🖼️ Input
 *Upload your CSV files and get instant AI-powered insights into data quality, outliers, and drift patterns.*
 
 ## ⚙️ Tech Stack
