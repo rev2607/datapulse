@@ -191,9 +191,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 🔗 LinkedIn: [rev2607](https://linkedin.com/in/rev2607)
 - 🌐 Portfolio: [www.revanth.cloud](https://www.revanth.cloud)
 
----
-
-<div align="center">
-  <p>Made with ❤️ for the data community</p>
-  <p>⭐ Star this repository if you find it helpful!</p>
-</div>
